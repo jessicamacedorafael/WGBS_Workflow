@@ -42,51 +42,65 @@ nohup ./sradownloader \
 --outdir /CAMINHO_DO_DIRETORIO/ \
 samples_list.txt &
 
-```markdown
+```
 
 ### 2. Controle de qualidade e trimming
 Single-end
-
+```bash
 nohup trim_galore \
   --q 20 --fastqc --length 50 --illumina --phred33 --gzip --cores 4 \
   amostra.fastq &
+```
+
 Paired-end
+```bash
 nohup trim_galore \
   --paired --gzip -q 20 --phred33 --length 50 --max_n 1 --illumina --fastqc --cores 8 \
   amostra_R1.fastq amostra_R2.fastq &
-
+```
 3. Alinhamento ao genoma (Bismark)
 
 Single-end
+```bash
 nohup bismark \
   -q --genome /caminho/genoma/referência \
   --multicore 12 --bam --gzip \
   AMOSTRA_val.fq.gz &
+```
 Paired-end
+```bash
 nohup bismark \
   -q --genome /caminho/genoma/referência \
   --multicore 12 --bam --gzip \
   -1 SRRamostra_val_1.fq.gz -2 SRRamostra_val_2.fq.gz &
+```
 4. Remoção de duplicatas
 
 Single-end
+```bash
 nohup deduplicate_bismark -s --bam arquivo_alinhado.bam &
+```
 Paired-end
+```bash
 nohup deduplicate_bismark -p --bam arquivo_alinhado.bam &
-
+```
 5. Concatenação de BAMs (se necessário)
+```bash
 nohup samtools cat -o output.bam input1.bam input2.bam ... n.bam &
-
+```
 
 6. Conversão BAM → PAT (WGBStools)
+```bash
 nohup wgbstools bam2pat SRRamostra_sorted.bam &
-
+```
 7. Conversão de regiões genômicas
+```bash
 wgbstools convert -L input.bed --out _pat output.bed
-
+```
 8. Geração da tabela final de metilação
+```bash
 nohup wgbstools beta_to_table output.bed --betas *.beta > output.csv &
-
+```
 📎 Observações
 
 Este pipeline tem finalidade documental e reprodutível, não automatizada.
