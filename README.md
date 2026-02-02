@@ -11,11 +11,11 @@ Este repositório documenta, passo a passo, o fluxo de trabalho utilizado para p
 - Sistema operacional: Linux
 - Genoma de referência: Bos taurus (bosTau9)
 - Ferramentas:
-  - SRAToolkit
-  - Trim Galore
-  - Bismark
-  - Samtools
-  - WGBStools
+  - SRAToolkit (https://github.com/ncbi/sratoolkit.git) 
+  - Trim Galore (https://github.com/FelixKrueger/TrimGalore.git)
+  - Bismark (https://github.com/FelixKrueger/Bismark.git)
+  - Samtools (https://github.com/samtools/samtools.git)
+  - WGBStools (https://github.com/nloyfer/wgbs_tools.git)
 
 ---
 
@@ -41,6 +41,8 @@ Este repositório documenta, passo a passo, o fluxo de trabalho utilizado para p
 nohup ./sradownloader \
 --outdir /CAMINHO_DO_DIRETORIO/ \
 samples_list.txt &
+
+
 
 ### 2. Controle de qualidade e trimming
 Single-end
