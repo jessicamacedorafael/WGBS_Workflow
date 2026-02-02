@@ -1,6 +1,6 @@
 # WGBS_Workflow
 
-Workflow bioinformático para análise de metilação por sequenciamento completo do genoma por bissulfito (WGBS), passo a passo desenvolvido na dissertação de mestrado
+Workflow bioinformático para análise de metilação por sequenciamento completo do genoma por bissulfito (WGBS), passo a passo desenvolvido na dissertação de mestrado.
 
 Este repositório documenta, passo a passo, o fluxo de trabalho utilizado para processamento das amostras, desde o download dos dados brutos até a geração da tabela final de porcentagem de metilação.
 
@@ -9,7 +9,6 @@ Este repositório documenta, passo a passo, o fluxo de trabalho utilizado para p
 ## 📌 Sistema e Ferramentas
 
 - Sistema operacional: Linux
-- Genoma de referência: Bos taurus (bosTau9)
 - Ferramentas:
   - SRAToolkit (https://github.com/ncbi/sratoolkit.git) 
   - Trim Galore (https://github.com/FelixKrueger/TrimGalore.git)
@@ -109,9 +108,18 @@ Os caminhos e nomes de arquivos devem ser ajustados conforme o ambiente local.
 
 Os dados brutos não são disponibilizados neste repositório.
 
+Há links diretos para todas as ferramentas utilizadas.
 
+## 🎓 Contexto acadêmico
 
+Este pipeline foi desenvolvido no contexto da dissertação de mestrado:
 
+**Título:** *Mapeamento e caracterização de novas regiões candidatas a ICRs no genoma bovino*  
+**Autora:** Jéssica Macedo Rafael de Arruda  
+**Programa:** Programa de Pós-Graduação em Biociências e Biotecnologia (PGBB)  
+**Instituição:** Universidade Estadual do Norte Fluminense Darcy Ribeiro (UENF)  
+**Ano:** 2024-2026  
+**Orientador:** Prof. Dr. Álvaro Fabrício Lopes Rios
 
 
 
