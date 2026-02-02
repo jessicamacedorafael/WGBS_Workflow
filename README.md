@@ -42,7 +42,7 @@ nohup ./sradownloader \
 --outdir /CAMINHO_DO_DIRETORIO/ \
 samples_list.txt &
 
-
+```markdown
 
 ### 2. Controle de qualidade e trimming
 Single-end
