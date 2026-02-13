@@ -1,8 +1,6 @@
 # WGBS_Workflow
 
-Bioinformatics workflow for methylation analysis via Whole Genome Bisulfite Sequencing (WGBS), a step-by-step guide developed during a master's thesis.
-
-This repository documents the step-by-step workflow used for sample processing, from downloading raw data to generating the final methylation percentage table.
+Bioinformatics workflow for methylation analysis via Whole Genome Bisulfite Sequencing (WGBS), a step-by-step guide developed during a master's thesis. This repository documents the step-by-step workflow used for sample processing, from downloading raw data to generating the final methylation percentage table.
 ---
 
 ## 📌 System and Tools
