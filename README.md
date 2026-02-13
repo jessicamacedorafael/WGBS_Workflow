@@ -1,6 +1,6 @@
 # WGBS_Workflow
 
-Bioinformatics workflow for methylation analysis via Whole Genome Bisulfite Sequencing (WGBS), a step-by-step guide developed during a master's thesis. This repository documents the step-by-step workflow used for sample processing, from downloading raw data to generating the final methylation percentage table.
+### Bioinformatics workflow for methylation analysis via Whole Genome Bisulfite Sequencing (WGBS), a step-by-step guide developed during a master's thesis. This repository documents the step-by-step workflow used for sample processing, from downloading raw data to generating the final methylation percentage table.
 ---
 
 ## 📌 System and Tools
@@ -54,7 +54,7 @@ nohup trim_galore \
   --paired --gzip -q 20 --phred33 --length 50 --max_n 1 --illumina --fastqc --cores 8 \
   sample_R1.fastq sample_R2.fastq &
 ```
-3. Genome alignment (Bismark)
+### 3. Genome alignment (Bismark)
 
 Single-end
 ```bash
@@ -70,7 +70,7 @@ nohup bismark \
   --multicore 12 --bam --gzip \
   -1 SRRsample_val_1.fq.gz -2 SRRsample_val_2.fq.gz &
 ```
-4. Duplicate removal
+### 4. Duplicate removal
 
 Single-end
 ```bash
@@ -80,23 +80,24 @@ Paired-end
 ```bash
 nohup deduplicate_bismark -p --bam aligned_file.bam &
 ```
-5. Concatenation of BAMs (if necessary)
+### 5. Concatenation of BAMs (if necessary)
 ```bash
 nohup samtools cat -o output.bam input1.bam input2.bam ... n.bam &
 ```
 
-6. BAM → PAT conversion (WGBStools)
+### 6. BAM → PAT conversion (WGBStools)
 ```bash
 nohup wgbstools bam2pat SRRsample_sorted.bam &
 ```
-7. Genomic region conversion
+### 7. Genomic region conversion
 ```bash
 wgbstools convert -L input.bed --out _pat output.bed
 ```
-8. Final methylation table generation
+### 8. Final methylation table generation
 ```bash
 nohup wgbstools beta_to_table output.bed --betas *.beta > output.csv &
 ```
+
 📎 Observations
 
 This pipeline is for documentation and reproducibility purposes, not for automation.
@@ -106,6 +107,7 @@ Paths and filenames should be adjusted according to the local environment.
 Raw data is not made available in this repository.
 
 There are direct links to all tools used.
+
 
 ## 🎓 Academic Context
 
