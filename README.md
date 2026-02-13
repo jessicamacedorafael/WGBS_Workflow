@@ -1,15 +1,14 @@
 # WGBS_Workflow
 
-Workflow bioinformático para análise de metilação por sequenciamento completo do genoma por bissulfito (WGBS), passo a passo desenvolvido na dissertação de mestrado.
+Bioinformatics workflow for methylation analysis via Whole Genome Bisulfite Sequencing (WGBS), a step-by-step guide developed during a master's thesis.
 
-Este repositório documenta, passo a passo, o fluxo de trabalho utilizado para processamento das amostras, desde o download dos dados brutos até a geração da tabela final de porcentagem de metilação.
-
+This repository documents the step-by-step workflow used for sample processing, from downloading raw data to generating the final methylation percentage table.
 ---
 
-## 📌 Sistema e Ferramentas
+## 📌 System and Tools
 
-- Sistema operacional: Linux
-- Ferramentas:
+- Operating system: Linux
+- Tools:
   - SRAToolkit (https://github.com/ncbi/sratoolkit.git) 
   - Trim Galore (https://github.com/FelixKrueger/TrimGalore.git)
   - Bismark (https://github.com/FelixKrueger/Bismark.git)
@@ -18,144 +17,105 @@ Este repositório documenta, passo a passo, o fluxo de trabalho utilizado para p
 
 ---
 
-## 📂 Estrutura do pipeline
+## 📂 Pipeline structure
 
-| Etapa | Descrição |
+| Step/Stage | Description |
 |-------|-----------|
-| 01 | Download das amostras do SRA |
-| 02 | Controle de qualidade e trimming |
-| 03 | Alinhamento ao genoma |
-| 04 | Remoção de duplicatas |
-| 05 | Concatenação de arquivos BAM |
-| 06 | Conversão BAM → PAT |
-| 07 | Definição de regiões genômicas |
-| 08 | Geração da tabela final de metilação |
+| 01 | SRA sample download |
+| 02 | Quality control and trimming |
+| 03 | Genome alignment |
+| 04 | Duplicate removal |
+| 05 | BAM file concatenation |
+| 06 | BAM → PAT conversion |
+| 07 | Genomic region definition |
+| 08 | Final methylation table generation |
 
 ---
 
-## 🚀 Fluxo de trabalho
+## 🚀 Workflow
 
-### 1. Download das amostras (SRA)
+### 1. Sample download (SRA)
 ```bash
 nohup ./sradownloader \
---outdir /CAMINHO_DO_DIRETORIO/ \
+--outdir /DIRECTORY_PATH/ \
 samples_list.txt &
 
 ```
 
-### 2. Controle de qualidade e trimming
+### 2. Quality control and trimming
 Single-end
 ```bash
 nohup trim_galore \
   --q 20 --fastqc --length 50 --illumina --phred33 --gzip --cores 4 \
-  amostra.fastq &
+  sample.fastq &
 ```
 
 Paired-end
 ```bash
 nohup trim_galore \
   --paired --gzip -q 20 --phred33 --length 50 --max_n 1 --illumina --fastqc --cores 8 \
-  amostra_R1.fastq amostra_R2.fastq &
+  sample_R1.fastq sample_R2.fastq &
 ```
-3. Alinhamento ao genoma (Bismark)
+3. Genome alignment (Bismark)
 
 Single-end
 ```bash
 nohup bismark \
-  -q --genome /caminho/genoma/referência \
+  -q --genome /path/genome/reference \
   --multicore 12 --bam --gzip \
-  AMOSTRA_val.fq.gz &
+  sample_val.fq.gz &
 ```
 Paired-end
 ```bash
 nohup bismark \
-  -q --genome /caminho/genoma/referência \
+  -q --genome /path/genome/reference \
   --multicore 12 --bam --gzip \
-  -1 SRRamostra_val_1.fq.gz -2 SRRamostra_val_2.fq.gz &
+  -1 SRRsample_val_1.fq.gz -2 SRRsample_val_2.fq.gz &
 ```
-4. Remoção de duplicatas
+4. Duplicate removal
 
 Single-end
 ```bash
-nohup deduplicate_bismark -s --bam arquivo_alinhado.bam &
+nohup deduplicate_bismark -s --bam aligned_file.bam &
 ```
 Paired-end
 ```bash
-nohup deduplicate_bismark -p --bam arquivo_alinhado.bam &
+nohup deduplicate_bismark -p --bam aligned_file.bam &
 ```
-5. Concatenação de BAMs (se necessário)
+5. Concatenation of BAMs (if necessary)
 ```bash
 nohup samtools cat -o output.bam input1.bam input2.bam ... n.bam &
 ```
 
-6. Conversão BAM → PAT (WGBStools)
+6. BAM → PAT conversion (WGBStools)
 ```bash
-nohup wgbstools bam2pat SRRamostra_sorted.bam &
+nohup wgbstools bam2pat SRRsample_sorted.bam &
 ```
-7. Conversão de regiões genômicas
+7. Genomic region conversion
 ```bash
 wgbstools convert -L input.bed --out _pat output.bed
 ```
-8. Geração da tabela final de metilação
+8. Final methylation table generation
 ```bash
 nohup wgbstools beta_to_table output.bed --betas *.beta > output.csv &
 ```
-📎 Observações
+📎 Observations
 
-Este pipeline tem finalidade documental e reprodutível, não automatizada.
+This pipeline is for documentation and reproducibility purposes, not for automation.
 
-Os caminhos e nomes de arquivos devem ser ajustados conforme o ambiente local.
+Paths and filenames should be adjusted according to the local environment.
 
-Os dados brutos não são disponibilizados neste repositório.
+Raw data is not made available in this repository.
 
-Há links diretos para todas as ferramentas utilizadas.
+There are direct links to all tools used.
 
-## 🎓 Contexto acadêmico
+## 🎓 Academic Context
 
-Este pipeline foi desenvolvido no contexto da dissertação de mestrado:
+This pipeline was developed in the context of the master's thesis:
 
-**Título:** *Mapeamento e caracterização de novas regiões candidatas a ICRs no genoma bovino*  
-**Autora:** Jéssica Macedo Rafael de Arruda  
-**Programa:** Programa de Pós-Graduação em Biociências e Biotecnologia (PGBB)  
-**Instituição:** Universidade Estadual do Norte Fluminense Darcy Ribeiro (UENF)  
-**Ano:** 2024-2026  
-**Orientador:** Prof. Dr. Álvaro Fabrício Lopes Rios
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+**Title:** *Mapping and characterization of novel candidate ICRs in the bovine genome*  
+**Author:** Jéssica Macedo Rafael de Arruda  
+**Program:** Graduate Program in Biosciences and Biotechnology (PGBB)  
+**Institution:** Darcy Ribeiro North Fluminense State University (UENF)  
+**Year:** 2024-2026  
+**Advisor:** Prof. Dr. Álvaro Fabrício Lopes Rios
