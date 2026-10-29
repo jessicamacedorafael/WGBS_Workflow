@@ -214,7 +214,7 @@ The output contains the average methylation of each region in each sample.
 
 If you use this workflow, please cite:
 
-> Arruda, J.M.R., 2026. WGBS_Workflow (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.XXXXXXX
+> Arruda, J.M.R., 2026. WGBS_Workflow (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.23778117
 
 ---
 
