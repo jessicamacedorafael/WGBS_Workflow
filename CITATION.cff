@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "WGBS_Workflow"
+version: 1.0.0
+authors:
+  - family-names: "Arruda"
+    given-names: "Jessica Macedo Rafael"
+    orcid: "https://orcid.org/0009-0000-0354-2807"
+license: MIT
+repository-code: "https://github.com/jessicamacedorafael/WGBS_Workflow"
